@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <title>Cleartrip</title> 
+    <meta name="viewport" content="width=device-width, user-scalable=no"/> 
+    <link media="screen" href="./static/css/style.css" type= "text/css" rel="stylesheet">
+    <style>
+    </style>
+    <script type="text/javascript">
+      var JSON = {
+         "flights": [
+              {   
+               "Name": "KF Red E6-184",
+               "Departs": "10:13",
+               "Arrives": "11:13",
+               "Duration": "1h :0m",
+               "Price": "2819"
+              },
+              {   
+               "Name": "Spice E6-184",
+               "Departs": "6:13",
+               "Arrives": "8:03",
+               "Duration": "1h :50m",
+               "Price": "3953"
+              },
+              {   
+               "Name": "Indigo E6-184",
+               "Departs": "11:13",
+               "Arrives": "12:13",
+               "Duration": "1h :0m",
+               "Price": "1753"
+              },
+              {   
+               "Name": "Indigo E6-189",
+               "Departs": "11:13",
+               "Arrives": "12:13",
+               "Duration": "1h :0m",
+               "Price": "1753"
+              },
+         ]
+      }
+    </script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+          <img src="./static/images/cleartrip_logo.gif" alt="cleartrip" height="25px" />
+      </div>
+      <ul>
+         <li>
+           <a class="flight selected" href="#"></a>
+         </li>
+         <li>
+           <a class="suitcase" href="#"></a>
+         </li>
+         <li>
+           <a class="settings" href="#"></a>
+         </li>
+      </ul>
+    </div>
+    <div class="content">
+      <h1>
+        <strong class="stop">New Delhi - Mumbai</strong>
+        <span>Mon, 02 Aug</span><span class="thin"> | 2 adults, 2 children</span>
+      </h1>
+      <div id="display">
+        <div class="cart">
+          <div class="price">
+            <h3 id="totalfare" class="totalfare">Rs. 0</h3>
+            <span class="totalfare-int">0</span>
+            <span>includes all charges (<a id="fbup">fare breakup</a>)</span>
+          </div>
+          <div class="buy">
+            <button>Book</button>
+          </div>
+        </div>
+        <div class="trip">
+          <div class="trips">
+            <h4 class="rP">Mumbai - New Delhi</h4>
+            <div class="sorts">
+              <a href="#" class="sort-trip2" >
+                departs
+              </a>
+              <a href="#" class="sort-trip2 middle" >
+                arrives
+              </a>
+              <a href="#" class="sort-trip2 last selected" >
+                price
+              </a>
+            </div>
+            <ul class="flights" id="trip1-list">
+               <li>
+               </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </body>
+</html>
