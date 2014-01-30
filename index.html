@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <title>Cleartrip</title> 
+    <meta name="viewport" content="width=device-width, user-scalable=no"/> 
+    <link media="screen" href="static/css/style.css" type= "text/css" rel="stylesheet">
+     <!-- Load jQuery and AngularJS from the CDN. -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <!-- Load the app module and its classes. -->
+    <script type="text/javascript">
+    // Define our AngularJS application module.
+    var demo = angular.module( "App", [] );
+      // main controller for the application.
+      function TripController($scope) {
+        // list of trips to display
+        $scope.trips = [
+          {name:'KF Red E6-184', departs:'10:13', arrives:'11:13', price:'2,819', duration:'1h :0m', icon:'kf' },
+          {name:'Spice E6-184', departs:'06:13',  arrives:'08:03',price:'3,953', duration:'1h :50m', icon:'air'},
+          {name:'Indigo E6-184', departs:'11:13', arrives:'12:13', price:'1,753', duration:'1h :0m', icon:'indigo'},
+          {name:'Indigo E6-189', departs:'11:13', arrives:'16:13', price:'9,907', duration:'5h :0m', icon: 'indigo'}]
+
+        $scope.selectedIndex = -1; // Whatever the default selected index is, use 0 for one selection, used -1 for none
+        // I define a click handler on the given element that will
+        // execute a statement in scope most local to the originating
+        // event target.
+        $scope.flightsClicked = function ($index, trip) {
+          $scope.selectedIndex = $index;
+          //  I select the given trip to display or i could have used event delegation running out of time :(
+          $scope.selectedtripprice = !$scope.selectedtripprice; // Toggles every entry in ng-show
+          $scope.selectedtripprice = trip;
+        };
+        // Fallback to default when a sort method clicked 
+        $scope.sortmethod = function (){
+          $scope.selectedIndex = -1;
+          $scope.selectedtripprice = null;
+        };
+      }
+    </script>
+  </head>
+  <body ng-app="App">
+    <div class="header">
+      <div class="logo">
+          <img src="./static/images/cleartrip_logo.gif" alt="cleartrip" height="25px" />
+      </div>
+      <ul>
+         <li>
+           <a class="flight selected" href="#"></a>
+         </li>
+         <li>
+           <a class="suitcase" href="#"></a>
+         </li>
+         <li>
+           <a class="settings" href="#"></a>
+         </li>
+      </ul>
+    </div>
+    <div class="content" ng-controller="TripController">
+      <h1>
+        <strong class="stop">New Delhi - Mumbai</strong>
+        <span>Mon, 02 Aug</span><span class="thin"> | 2 adults, 2 children</span>
+      </h1>
+      <div id="display">
+        <div class="cart">
+          <div class="price">
+            <!-- IF a trip has been selected, show them. -->
+            <h3 id="totalfare" class="totalfare" ng-show="selectedtripprice">Rs. {{ selectedtripprice.price }}</h3>
+            <span class="totalfare-int">0</span>
+            <span>includes all charges (<a id="fbup">fare breakup</a>)</span>
+          </div>
+          <div class="buy">
+            <button>Book</button>
+          </div>
+        </div>
+        <div class="trip" ng-init="predicate = 'departs'; reverse=true">
+          <div class="trips">
+            <h4 class="rP">Mumbai - New Delhi</h4>
+            <div class="sorts">
+              <!-- toggle the 'selected' class for a sorting method and initially set predicate to r by ng-click -->
+              <a href="#" class="sort-trip2" ng-class='{"selected":sort==1}' ng-click="predicate = 'departs'; reverse=!reverse; sort=1; sortmethod()">departs</a>
+              <a href="#" class="sort-trip2 middle" ng-class='{"selected":sort==2}' ng-click="predicate = 'arrives'; reverse=!reverse; sort=2; sortmethod()" >arrives</a>
+              <a href="#" class="sort-trip2 last" ng-class='{"selected":sort==3}' ng-click="predicate = 'price'; reverse=!reverse; sort=3; sortmethod()">price</a>
+            </div>
+            <ul class="flights" id="trip1-list">
+
+              <!--
+                List out all of the trips.
+              -->
+              <li class="" ng-repeat="trip in trips | orderBy:predicate:reverse" ng-class="{ 'selected': $index == selectedIndex }" ng-click="flightsClicked($index, trip);">
+                <div class="flight-icons {{trip.icon}}"></div>
+                <div class="flight-details">
+                  <div class="time">{{trip.departs}} - {{trip.arrives}}</div>
+                  <div class="name">{{trip.name}}</div>
+                  <div class="duration">{{trip.duration}}</div>
+                </div>
+                <div class="trip-fare">Rs. {{trip.price}}</div>
+                <div class="fare">{{trip.price}}</div>
+                <!-- Leaved blank as these are not required in my code -->
+                <div class="departs"></div>
+                <div class="arrives"></div>
+                <div class="cb"><span class="cbid"></span></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </body>
+</html>
